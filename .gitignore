@@ -5,3 +5,7 @@ CardDefs.xml
 *.csv
 *.html
 *.c
+*.exe
+*.config
+*.pdb
+*.manifest
