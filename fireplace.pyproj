@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{db3d45cd-08b6-4530-b879-3f54431fedef}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>setup.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterId>{9a7a9026-48c1-4688-9d5d-e5699d47d074}</InterpreterId>
+    <InterpreterVersion>3.5</InterpreterVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+    <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="logo.png" />
+    <Content Include="requirements.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="fireplace\actions.py" />
+    <Compile Include="fireplace\aura.py" />
+    <Compile Include="fireplace\brawls\__init__.py" />
+    <Compile Include="fireplace\card.py" />
+    <Compile Include="fireplace\cards\blackrock\adventure.py" />
+    <Compile Include="fireplace\cards\blackrock\brawl.py" />
+    <Compile Include="fireplace\cards\blackrock\collectible.py" />
+    <Compile Include="fireplace\cards\blackrock\__init__.py" />
+    <Compile Include="fireplace\cards\brawl\banana_brawl.py" />
+    <Compile Include="fireplace\cards\brawl\blingbrawl.py" />
+    <Compile Include="fireplace\cards\brawl\clash_of_the_minions.py" />
+    <Compile Include="fireplace\cards\brawl\decks_assemble.py" />
+    <Compile Include="fireplace\cards\brawl\gift_exchange.py" />
+    <Compile Include="fireplace\cards\brawl\ktraf.py" />
+    <Compile Include="fireplace\cards\brawl\masked_ball.py" />
+    <Compile Include="fireplace\cards\brawl\mechwar.py" />
+    <Compile Include="fireplace\cards\brawl\miniature_warfare.py" />
+    <Compile Include="fireplace\cards\brawl\pick_your_fate.py" />
+    <Compile Include="fireplace\cards\brawl\southshore_tarren_mill.py" />
+    <Compile Include="fireplace\cards\brawl\underdog_rules.py" />
+    <Compile Include="fireplace\cards\brawl\unite_against_mechazod.py" />
+    <Compile Include="fireplace\cards\brawl\whos_the_boss.py" />
+    <Compile Include="fireplace\cards\brawl\__init__.py" />
+    <Compile Include="fireplace\cards\classic\druid.py" />
+    <Compile Include="fireplace\cards\classic\hunter.py" />
+    <Compile Include="fireplace\cards\classic\mage.py" />
+    <Compile Include="fireplace\cards\classic\neutral_common.py" />
+    <Compile Include="fireplace\cards\classic\neutral_epic.py" />
+    <Compile Include="fireplace\cards\classic\neutral_legendary.py" />
+    <Compile Include="fireplace\cards\classic\neutral_rare.py" />
+    <Compile Include="fireplace\cards\classic\paladin.py" />
+    <Compile Include="fireplace\cards\classic\priest.py" />
+    <Compile Include="fireplace\cards\classic\rogue.py" />
+    <Compile Include="fireplace\cards\classic\shaman.py" />
+    <Compile Include="fireplace\cards\classic\warlock.py" />
+    <Compile Include="fireplace\cards\classic\warrior.py" />
+    <Compile Include="fireplace\cards\classic\__init__.py" />
+    <Compile Include="fireplace\cards\custom\__init__.py" />
+    <Compile Include="fireplace\cards\debug\all.py" />
+    <Compile Include="fireplace\cards\debug\__init__.py" />
+    <Compile Include="fireplace\cards\game\all.py" />
+    <Compile Include="fireplace\cards\game\__init__.py" />
+    <Compile Include="fireplace\cards\gvg\druid.py" />
+    <Compile Include="fireplace\cards\gvg\hunter.py" />
+    <Compile Include="fireplace\cards\gvg\mage.py" />
+    <Compile Include="fireplace\cards\gvg\neutral_common.py" />
+    <Compile Include="fireplace\cards\gvg\neutral_epic.py" />
+    <Compile Include="fireplace\cards\gvg\neutral_legendary.py" />
+    <Compile Include="fireplace\cards\gvg\neutral_rare.py" />
+    <Compile Include="fireplace\cards\gvg\paladin.py" />
+    <Compile Include="fireplace\cards\gvg\priest.py" />
+    <Compile Include="fireplace\cards\gvg\rogue.py" />
+    <Compile Include="fireplace\cards\gvg\shaman.py" />
+    <Compile Include="fireplace\cards\gvg\spare_parts.py" />
+    <Compile Include="fireplace\cards\gvg\warlock.py" />
+    <Compile Include="fireplace\cards\gvg\warrior.py" />
+    <Compile Include="fireplace\cards\gvg\__init__.py" />
+    <Compile Include="fireplace\cards\heroes.py" />
+    <Compile Include="fireplace\cards\league\adventure.py" />
+    <Compile Include="fireplace\cards\league\collectible.py" />
+    <Compile Include="fireplace\cards\league\__init__.py" />
+    <Compile Include="fireplace\cards\naxxramas\adventure.py" />
+    <Compile Include="fireplace\cards\naxxramas\collectible.py" />
+    <Compile Include="fireplace\cards\naxxramas\__init__.py" />
+    <Compile Include="fireplace\cards\tgt\druid.py" />
+    <Compile Include="fireplace\cards\tgt\hunter.py" />
+    <Compile Include="fireplace\cards\tgt\mage.py" />
+    <Compile Include="fireplace\cards\tgt\neutral_common.py" />
+    <Compile Include="fireplace\cards\tgt\neutral_epic.py" />
+    <Compile Include="fireplace\cards\tgt\neutral_legendary.py" />
+    <Compile Include="fireplace\cards\tgt\neutral_rare.py" />
+    <Compile Include="fireplace\cards\tgt\paladin.py" />
+    <Compile Include="fireplace\cards\tgt\priest.py" />
+    <Compile Include="fireplace\cards\tgt\rogue.py" />
+    <Compile Include="fireplace\cards\tgt\shaman.py" />
+    <Compile Include="fireplace\cards\tgt\upgraded_hero_powers.py" />
+    <Compile Include="fireplace\cards\tgt\warlock.py" />
+    <Compile Include="fireplace\cards\tgt\warrior.py" />
+    <Compile Include="fireplace\cards\tgt\__init__.py" />
+    <Compile Include="fireplace\cards\tutorial\all.py" />
+    <Compile Include="fireplace\cards\tutorial\__init__.py" />
+    <Compile Include="fireplace\cards\utils.py" />
+    <Compile Include="fireplace\cards\wog\druid.py" />
+    <Compile Include="fireplace\cards\wog\hunter.py" />
+    <Compile Include="fireplace\cards\wog\mage.py" />
+    <Compile Include="fireplace\cards\wog\neutral_common.py" />
+    <Compile Include="fireplace\cards\wog\neutral_epic.py" />
+    <Compile Include="fireplace\cards\wog\neutral_legendary.py" />
+    <Compile Include="fireplace\cards\wog\neutral_rare.py" />
+    <Compile Include="fireplace\cards\wog\paladin.py" />
+    <Compile Include="fireplace\cards\wog\priest.py" />
+    <Compile Include="fireplace\cards\wog\rogue.py" />
+    <Compile Include="fireplace\cards\wog\shaman.py" />
+    <Compile Include="fireplace\cards\wog\warlock.py" />
+    <Compile Include="fireplace\cards\wog\warrior.py" />
+    <Compile Include="fireplace\cards\wog\__init__.py" />
+    <Compile Include="fireplace\cards\__init__.py" />
+    <Compile Include="fireplace\deck.py" />
+    <Compile Include="fireplace\dsl\copy.py" />
+    <Compile Include="fireplace\dsl\evaluator.py" />
+    <Compile Include="fireplace\dsl\lazynum.py" />
+    <Compile Include="fireplace\dsl\random_picker.py" />
+    <Compile Include="fireplace\dsl\selector.py" />
+    <Compile Include="fireplace\dsl\switch.py" />
+    <Compile Include="fireplace\dsl\__init__.py" />
+    <Compile Include="fireplace\entity.py" />
+    <Compile Include="fireplace\enums.py" />
+    <Compile Include="fireplace\events.py" />
+    <Compile Include="fireplace\exceptions.py" />
+    <Compile Include="fireplace\game.py" />
+    <Compile Include="fireplace\logging.py" />
+    <Compile Include="fireplace\managers.py" />
+    <Compile Include="fireplace\player.py" />
+    <Compile Include="fireplace\rules.py" />
+    <Compile Include="fireplace\targeting.py" />
+    <Compile Include="fireplace\utils.py" />
+    <Compile Include="fireplace\__init__.py" />
+    <Compile Include="kettle\kettle.py" />
+    <Compile Include="kettle\__init__.py" />
+    <Compile Include="setup.py" />
+    <Compile Include="tests\full_game.py" />
+    <Compile Include="tests\implemented.py" />
+    <Compile Include="tests\test_auchenai_soulpriest.py" />
+    <Compile Include="tests\test_blackrock.py" />
+    <Compile Include="tests\test_brann_bronzebeard.py" />
+    <Compile Include="tests\test_carddb.py" />
+    <Compile Include="tests\test_classic.py" />
+    <Compile Include="tests\test_dsl.py" />
+    <Compile Include="tests\test_exceptions.py" />
+    <Compile Include="tests\test_feign_death.py" />
+    <Compile Include="tests\test_gvg.py" />
+    <Compile Include="tests\test_hero_powers.py" />
+    <Compile Include="tests\test_jaraxxus.py" />
+    <Compile Include="tests\test_league.py" />
+    <Compile Include="tests\test_mechanics.py" />
+    <Compile Include="tests\test_misc.py" />
+    <Compile Include="tests\test_naxxramas.py" />
+    <Compile Include="tests\test_old_warsong_commander.py" />
+    <Compile Include="tests\test_secrets.py" />
+    <Compile Include="tests\test_tgt.py" />
+    <Compile Include="tests\test_wog.py" />
+    <Compile Include="tests\utils.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="fireplace" />
+    <Folder Include="fireplace\brawls" />
+    <Folder Include="fireplace\cards" />
+    <Folder Include="fireplace\cards\blackrock" />
+    <Folder Include="fireplace\cards\brawl" />
+    <Folder Include="fireplace\cards\classic" />
+    <Folder Include="fireplace\cards\custom" />
+    <Folder Include="fireplace\cards\debug" />
+    <Folder Include="fireplace\cards\game" />
+    <Folder Include="fireplace\cards\gvg" />
+    <Folder Include="fireplace\cards\league" />
+    <Folder Include="fireplace\cards\naxxramas" />
+    <Folder Include="fireplace\cards\tgt" />
+    <Folder Include="fireplace\cards\tutorial" />
+    <Folder Include="fireplace\cards\wog" />
+    <Folder Include="fireplace\dsl" />
+    <Folder Include="kettle" />
+    <Folder Include="tests" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterpreterReference Include="{9a7a9026-48c1-4688-9d5d-e5699d47d074}\3.5" />
+  </ItemGroup>
+  <Import Project="$(PtvsTargetsFile)" Condition="Exists($(PtvsTargetsFile))" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="!Exists($(PtvsTargetsFile))" />
+</Project>
