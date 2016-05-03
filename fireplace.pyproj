@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{db3d45cd-08b6-4530-b879-3f54431fedef}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>fireplace\cython\fake_selector.py</StartupFile>
+    <StartupFile>fireplace\cython\importbuild.py</StartupFile>
     <SearchPath>.;tests\</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -26,6 +26,13 @@
     </Content>
     <Content Include="fireplace\cython\fake_selector_cy.html" />
     <Content Include="fireplace\cython\fake_selector_cy.pyx">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="fireplace\cython\fake_selector_dict_cy.pyx">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="fireplace\cython\fake_selector_dict_opt_cy.html" />
+    <Content Include="fireplace\cython\fake_selector_dict_opt_cy.pyx">
       <SubType>Code</SubType>
     </Content>
     <Content Include="fireplace\cython\importbuild.py">
@@ -136,6 +143,9 @@
     <Compile Include="fireplace\cards\wog\__init__.py" />
     <Compile Include="fireplace\cards\__init__.py" />
     <Compile Include="fireplace\cython\fake_selector.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fireplace\cython\fake_selector_dict.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="fireplace\deck.py" />
