@@ -5,14 +5,16 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{db3d45cd-08b6-4530-b879-3f54431fedef}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>setup.py</StartupFile>
-    <SearchPath />
-    <WorkingDirectory>.</WorkingDirectory>
+    <StartupFile>tests\selector_tests.py</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>tests</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <InterpreterId>{9a7a9026-48c1-4688-9d5d-e5699d47d074}</InterpreterId>
     <InterpreterVersion>3.5</InterpreterVersion>
+    <IsWindowsApplication>False</IsWindowsApplication>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
@@ -128,6 +130,9 @@
     <Compile Include="fireplace\dsl\lazynum.py" />
     <Compile Include="fireplace\dsl\random_picker.py" />
     <Compile Include="fireplace\dsl\selector.py" />
+    <Compile Include="tests\selector_tests.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fireplace\dsl\switch.py" />
     <Compile Include="fireplace\dsl\__init__.py" />
     <Compile Include="fireplace\entity.py" />
