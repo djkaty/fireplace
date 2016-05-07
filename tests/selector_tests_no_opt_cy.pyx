@@ -8,7 +8,7 @@ from fireplace.card import Card
 logging.disable(logging.INFO)
 
 def test_selector():
-	for hand in range(3):
+	for hand in range(2,3):
 		game = prepare_game()
 
 		if (hand == 0):

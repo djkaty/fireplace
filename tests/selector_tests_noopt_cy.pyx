@@ -1,3 +1,5 @@
+# THIS FILE IS IDENTICAL TO selector_tests.py
+
 import logging
 import time
 

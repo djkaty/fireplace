@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{db3d45cd-08b6-4530-b879-3f54431fedef}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>tests\selector_tests.py</StartupFile>
+    <StartupFile>tests\selector_tests_cython_bootstrap.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>tests</WorkingDirectory>
@@ -25,6 +25,12 @@
   <ItemGroup>
     <Content Include="logo.png" />
     <Content Include="requirements.txt" />
+    <Content Include="tests\selector_tests_noopt_cy.pyx">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="tests\selector_tests_opt_cy.pyx">
+      <SubType>Code</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="fireplace\actions.py" />
@@ -152,6 +158,9 @@
     <Compile Include="setup.py" />
     <Compile Include="tests\full_game.py" />
     <Compile Include="tests\implemented.py" />
+    <Compile Include="tests\selector_tests_cython_bootstrap.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="tests\test_auchenai_soulpriest.py" />
     <Compile Include="tests\test_blackrock.py" />
     <Compile Include="tests\test_brann_bronzebeard.py" />
