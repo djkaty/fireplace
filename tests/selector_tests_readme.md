@@ -151,6 +151,8 @@ Each of these has advantages and disadvantages:
 1. Write them by hand. This works but precludes set operators from being used to combine selectors
 2. Pre-compile them. This can be done by Python bytecode (as per edk/qi's suggestion) or writing a Python script which parses the selectors and outputs Python code to implement them as lambdas (my suggestion) as part of `setup_py`. This requires substantial changes to how the DSL is written to make it parseable and represents the most amount of work of any of the optimizations
 
+If a solution to predicate generation can be found, this is the best option.
+
 #### Option 3
 
 **Pros**
@@ -193,7 +195,7 @@ Of course there are many different ways to implement this.
 
 **Short-term**: Implement guaranteed attributes first, then entity segregation. These will both speed up fireplace's run-time in general as well as selectors
 
-**Medium-term**: Choose one of the three options above and implement it in Python. My preference is option 1 if future work in Cython is not guaranteed, and option 3 if it is guaranteed
+**Medium-term**: Choose one of the three options above and implement it in Python. My preference is option 1 if future work in Cython is not guaranteed, and option 3 if it is guaranteed. If predicate generation can be solved, my preference is option 2.
 
 **Long-term**: Implement the optimizations in Cython
 
