@@ -8,28 +8,29 @@ from fireplace.card import Card
 logging.disable(logging.INFO)
 
 def test_selector():
+	# Do this only once because we want the game to have the same state each time
+	game = prepare_game()
+
 	for hand in range(3):
-		game = prepare_game()
 
 		if (hand == 0):
+			print("Hand size = 5")
+			game.player1.give("EX1_561")
+
+		elif (hand == 1):
+			print("Hand size = 10")
+			game.player1.give("LOE_006")
+			game.player1.give("LOE_006")
+			game.player1.give("LOE_006")
+			game.player1.give("LOE_006")
+			game.player1.give("LOE_006")
+
+		elif (hand == 2):
 			print("Hand size = 1")
 			game.player1.discard_hand()
 			game.player1.give("EX1_561")
 
-		elif (hand == 1):
-			print("Hand size = 5")
-			game.player1.give("EX1_561")
-
-		elif (hand == 2):
-			print("Hand size = 10")
-			game.player1.give("EX1_561")
-			game.player1.give("LOE_006")
-			game.player1.give("LOE_006")
-			game.player1.give("LOE_006")
-			game.player1.give("LOE_006")
-			game.player1.give("LOE_006")
-
-		numIterations = 100000
+		numIterations = 1000
 		print("Running " + str(numIterations) + " iterations...")
 
 		# Get all the dragons in all friendly players' hands, using player 1's hand as a source
@@ -82,7 +83,7 @@ def test_selector():
 			game.player2.zone_entities[zone] = []
 
 		for item in game:
-			if hasattr(item, 'zone') and hasattr(item, 'controller'):
+			if hasattr(item, 'zone') and getattr(item, 'controller', None) != None:
 				item.controller.zone_entities[item.zone].append(item)
 
 		# Some fake selectors

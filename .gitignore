@@ -3,3 +3,7 @@ CardDefs.xml
 /.cache/v/cache/lastfailed
 *.csv
 *.xlsx
+*.suo
+.vs/
+*.opendb
+*.sdf
