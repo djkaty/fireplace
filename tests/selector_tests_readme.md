@@ -33,8 +33,10 @@ If you can't open Excel spreadsheets, see these PNG images:
 [Spreadsheet graphs](https://raw.githubusercontent.com/djkaty/fireplace/work/selector-tests/selector-graphs.png)
 
 Blue bar: Hand size = 1
+
 Orange bar: Hand size = 5
-Grey bar: Hand size = 5
+
+Grey bar: Hand size = 10
 
 The data labels shown are for the median hand size of 5.
 
@@ -64,6 +66,8 @@ These tests are expected to work for `Selector`, `EnumSelector`, `SelectorEntity
 `FuncSelector`, `SliceSelector` and `BoardPositionSelector` are ignored.
 
 `RandomSelector` will work in most cases (see exceptions below).
+
+`LazyValue`s are not tested but should be able to be added without too much difficulty.
 
 Only `DRAGON + IN_HAND + FRIENDLY` was used for the test. This selector was chosen because it is extremely slow, has set operations and does duplicate work.
 
@@ -123,11 +127,13 @@ Each of these has advantages and disadvantages:
 
 - Easiest to implement
 - Requires no changes to DSL
+- Entity segregation and guaranteed attributes improve the run-time of fireplace in general
 - All selector types should continue to function as normal because the actual selector composition logic is not changed
 
 **Cons**
 
 - Worst performance in both Python and Cython (but only slightly, ~20%)
+- Game code must be changed to keep entities in the right buckets
 - With the exception of guaranteed attributes, none of these optimizations apply to options 2 or 3, so if these were applied at a later date, the work would be wasted
 
 #### Option 2
@@ -154,7 +160,7 @@ Each of these has advantages and disadvantages:
 
 **Cons**
 
-- Poor performance in Python
+- Poor performance in Python (but still 3.5x faster than the current implementation)
 - Special cases will have to be made for things such as `RandomSelector` due to the fact that each single entity test is dispatched to a filter function returning bool for inclusion or exclusion
 
 Note that if predicates are implemented using lambdas in Python, they must be substantially re-written for Cython, as due to complex reasons discussed in the source code comments, the filter functions (lambdas) must be implemented as classes in Cython. If taking this option, I recommend starting out by making each predicate a class in pure Python. Note this also helps with the `RandomSelector`-type problem because a filter can then maintain state.
