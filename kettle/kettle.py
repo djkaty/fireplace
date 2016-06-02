@@ -144,6 +144,8 @@ class KettleManager:
 			"Source": choice.source.entity_id,
 			"PlayerId": 1,
 		}
+		for show_choice in choice.cards:
+			self.queued_data.append(self.show_entity(show_choice))
 		payload = {"Type": "EntityChoices", "EntityChoices": self.choices}
 		self.queued_data.append(payload)
 
@@ -246,6 +248,16 @@ class KettleManager:
 	def full_entity(self, entity):
 		return {
 			"Type": "FullEntity",
+			"FullEntity": {
+				"CardID": entity.id,
+				"EntityID": entity.entity_id,
+				"Tags": self.game_state[entity.entity_id],
+			}
+		}
+
+	def show_entity(self, entity):
+		return {
+			"Type": "ShowEntity",
 			"FullEntity": {
 				"CardID": entity.id,
 				"EntityID": entity.entity_id,
