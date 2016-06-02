@@ -13,6 +13,9 @@ class HeroPowerAI(PlayerAI):
 			self.choice.choose()
 
 	def turn(self):
+		if self.hero.health < 10:
+			self.concede()
+
 		while self.hero.power.is_usable():
 			self.log("Playing hero power")
 			if self.hero.power.has_target():
