@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "fireplace", "fireplace.pyproj", "{E0157E33-7A4F-46AE-B67C-DA7DAB5F3FBC}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "fireplace", "fireplace.pyproj", "{E6F8DD82-75E6-4393-870D-5242B75DAD94}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,8 +11,8 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E0157E33-7A4F-46AE-B67C-DA7DAB5F3FBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E0157E33-7A4F-46AE-B67C-DA7DAB5F3FBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6F8DD82-75E6-4393-870D-5242B75DAD94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6F8DD82-75E6-4393-870D-5242B75DAD94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
