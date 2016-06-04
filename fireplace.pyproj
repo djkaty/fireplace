@@ -21,11 +21,18 @@
     <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="fireplace\ai\__pycache__\always_hero_power.cpython-35.pyc" />
+    <Content Include="fireplace\ai\__pycache__\player.cpython-35.pyc" />
     <Content Include="logo.png" />
     <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="fireplace\actions.py" />
+    <Compile Include="fireplace\ai\always_hero_power.py" />
+    <Compile Include="fireplace\ai\examples\one_ai_player_demo.py" />
+    <Compile Include="fireplace\ai\examples\two_ai_players_demo.py" />
+    <Compile Include="fireplace\ai\player.py" />
+    <Compile Include="fireplace\ai\__init__.py" />
     <Compile Include="fireplace\aura.py" />
     <Compile Include="fireplace\brawls\__init__.py" />
     <Compile Include="fireplace\card.py" />
@@ -121,6 +128,7 @@
     <Compile Include="fireplace\cards\wog\warrior.py" />
     <Compile Include="fireplace\cards\wog\__init__.py" />
     <Compile Include="fireplace\cards\__init__.py" />
+    <Compile Include="fireplace\controller.py" />
     <Compile Include="fireplace\deck.py" />
     <Compile Include="fireplace\dsl\copy.py" />
     <Compile Include="fireplace\dsl\evaluator.py" />

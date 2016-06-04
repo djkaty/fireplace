@@ -17,7 +17,7 @@ from fireplace.game import BaseGame as Game
 from fireplace.player import Player
 from fireplace.utils import CardList
 from fireplace.controller import GameController
-from fireplace.ai.player import PlayerAI
+from fireplace.ai.always_hero_power import HeroPowerAI as PlayerAI
 
 
 logging.basicConfig(level=logging.DEBUG)
