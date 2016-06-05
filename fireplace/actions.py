@@ -1,6 +1,6 @@
 from collections import OrderedDict
 from inspect import isclass
-from hearthstone.enums import CardType, CardClass, Mulligan, PlayState, Step, Zone
+from hearthstone.enums import CardType, CardClass, Mulligan, PlayState, Step, Zone, BlockType
 from .dsl import LazyNum, LazyValue, Selector
 from .entity import Entity
 from .logging import log
@@ -456,8 +456,12 @@ class Activate(GameAction):
 		self.broadcast(source, EventListener.ON, player, heropower, target)
 
 		actions = heropower.get_actions("activate")
-		source.game.main_power(heropower, actions, target)
 
+		source.game.action_start(BlockType.PLAY, heropower, 0, target)
+		source.game.main_power(heropower, actions, target)
+		source.game.action_end(BlockType.PLAY, heropower)
+
+		# source.game.action_block(player, actions, BlockType.PLAY, target=target)
 		for minion in player.field.filter(has_inspire=True):
 			actions = minion.get_actions("inspire")
 			if actions is None:
