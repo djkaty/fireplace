@@ -311,6 +311,7 @@ class Joust(GameAction):
 class GenericChoice(GameAction):
 	PLAYER = ActionArg()
 	CARDS = ActionArg()
+	CHOICE = CardArg()
 
 	def get_args(self, source):
 		player = self._args[0]
@@ -327,9 +328,9 @@ class GenericChoice(GameAction):
 		for card in cards:
 			card.zone = Zone.SETASIDE
 
-		return player, cards
+		return player, cards, None
 
-	def do(self, source, player, cards):
+	def do(self, source, player, cards, choice):
 		player.choice = self
 		self.source = source
 		self.player = player
@@ -351,9 +352,13 @@ class GenericChoice(GameAction):
 			else:
 				_card.discard()
 		self.player.choice = None
+		self.CHOICE = card
 
 		if self.source.must_choose_entity:
-			self.source.game.queue_actions(self.source, [BattlecryContinue(self.source, None)])
+			action = BattlecryContinue(self.source, None)
+			action.callback = self.callback
+			action._args = [self.source.controller, self.ARGS[2]]
+			self.source.game.queue_actions(self.source, [action], event_args=self.ARGS)
 
 
 class MulliganChoice(GameAction):
@@ -725,6 +730,10 @@ class BattlecryContinue(Battlecry):
 	def do(self, source, card, target):
 		player = card.controller
 
+		#for action in self.callback:
+		#	log.info("%r queues up222 callback %r", self, action)
+		#	source.game.queue_actions(source, [action], event_args=source.event_args)
+
 		if card.overload:
 			source.game.queue_actions(card, [Overload(player, card.overload)])
 		source.game.action_end(BlockType.POWER, source)
@@ -764,17 +773,20 @@ class Discard(TargetedAction):
 		target.discard()
 
 
-class Discover(TargetedAction):
+class Discover(GenericChoice):
 	"""
 	Opens a generic choice for three random cards matching a filter.
 	"""
-	TARGET = ActionArg()
-	CARDS = CardArg()
+	def get_args(self, source):
+		player = self._args[0]
+		if isinstance(player, Selector):
+			player = player.eval(source.game.players, source)
+			assert len(player) == 1
+			player = player[0]
 
-	def get_target_args(self, source, target):
-		if target.hero.data.card_class != CardClass.NEUTRAL:
+		if player.hero.data.card_class != CardClass.NEUTRAL:
 			# use hero class for Discover if not neutral (eg. Ragnaros)
-			discover_class = target.hero.data.card_class
+			discover_class = player.hero.data.card_class
 		elif source.data.card_class != CardClass.NEUTRAL:
 			# use card class for neutral hero classes
 			discover_class = source.data.card_class
@@ -785,11 +797,14 @@ class Discover(TargetedAction):
 		picker = self._args[1] * 3
 		picker = picker.copy_with_weighting(1, card_class=CardClass.NEUTRAL)
 		picker = picker.copy_with_weighting(4, card_class=discover_class)
-		return [picker.evaluate(source)]
+		cards = picker.evaluate(source)
+		return player, cards, None
 
-	def do(self, source, target, cards):
+	def do(self, source, target, cards, choice):
 		log.info("%r discovers %r for %s", source, cards, target)
-		source.game.queue_actions(source, [GenericChoice(target, cards)])
+		choice_action = GenericChoice(target, cards)
+		choice_action.callback = self.callback
+		source.game.queue_actions(source, [choice_action], self.callback)
 
 
 class Draw(TargetedAction):

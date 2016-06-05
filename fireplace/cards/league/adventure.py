@@ -459,6 +459,11 @@ class LOEA16_12:
 	play = Morph(FRIENDLY_HAND, "GVG_003")
 
 
+class LOEA16_13:
+	"Eye of Orsis"
+	play = DISCOVER(RandomMinion()).then(Give(CONTROLLER, GenericChoice.CHOICE) * 2)
+
+
 class LOEA16_14:
 	"Khadgar's Pipe"
 	play = (
