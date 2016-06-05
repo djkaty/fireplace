@@ -252,16 +252,17 @@ class KettleManager:
 		self.options_sent = False
 
 	def tag_change(self, entity, tag, value):
-		DEBUG("Queueing a tag change for entity %r: %r -> %r", entity, tag, value)
-		payload = {
-			"Type": "TagChange",
-			"TagChange": {
-				"EntityID": entity.entity_id,
-				"Tag": tag,
-				"Value": value,
+		if tag >= 0:
+			DEBUG("Queueing a tag change for entity %r: %r -> %r", entity, tag, value)
+			payload = {
+				"Type": "TagChange",
+				"TagChange": {
+					"EntityID": entity.entity_id,
+					"Tag": tag,
+					"Value": value,
+				}
 			}
-		}
-		self.queued_data.append(payload)
+			self.queued_data.append(payload)
 
 	def game_entity(self, game):
 		return {
