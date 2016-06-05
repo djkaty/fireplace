@@ -354,7 +354,6 @@ class GenericChoice(GameAction):
 
 		if self.source.must_choose_entity:
 			self.source.game.queue_actions(self.source, [BattlecryContinue(self.source, None)])
-			self.source.game.action_end(BlockType.PLAY, card.controller)
 
 
 class MulliganChoice(GameAction):
@@ -716,20 +715,22 @@ class Battlecry(TargetedAction):
 
 
 class BattlecryContinue(Battlecry):
+	"""
+	Continue Battlecry on card targets. INTERNAL USE ONLY
+	"""
 	def do(self, source, card, target):
 		player = card.controller
 
-		if player.extra_battlecries and card.has_battlecry:
-			if card.has_combo and player.combo:
-				actions = card.get_actions("combo")
-			else:
-				actions = card.get_actions("play")
-			source.game.main_power(source, actions, target)
-
 		if card.overload:
 			source.game.queue_actions(card, [Overload(player, card.overload)])
-
 		source.game.action_end(BlockType.POWER, source)
+
+		if player.extra_battlecries and card.has_battlecry and not player.is_doing_extra_battlecries:
+			player.is_doing_extra_battlecries = True
+			source.game.queue_actions(source, [Battlecry(card, target)])
+		else:
+			player.is_doing_extra_battlecries = False
+			source.game.action_end(BlockType.PLAY, card.controller)
 
 
 class Destroy(TargetedAction):
