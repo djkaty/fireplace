@@ -366,9 +366,9 @@ class MulliganChoice(GameAction):
 	def do(self, source, player):
 		player.mulligan_state = Mulligan.INPUT
 		player.choice = self
-		# NOTE: Ideally, we give The Coin when the Mulligan is over.
-		# Unfortunately, that's not compatible with Blizzard's way.
-		self.cards = player.hand.exclude(id="GAME_005")
+		# NOTE: Weirdly, we have to give The Coin now,
+		# and the player must not mulligan it.
+		self.cards = player.hand # don't exclude The Coin (GAME_005)
 		self.source = source
 		self.player = player
 		self.min_count = 0
