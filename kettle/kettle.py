@@ -158,15 +158,21 @@ class KettleManager:
 
 		return ret
 
-	def refresh_choices(self):
-		if not hasattr(self.game.current_player, "choice"):
+	def refresh_choices(self, player=None):
+		if player is not None:
+			choice_type = ChoiceType.MULLIGAN
+		else:
+			choice_type = ChoiceType.GENERAL
+			player = self.game.current_player
+
+		if not hasattr(player, "choice"):
 			return False
-		if not self.game.current_player.choice:
+		if not player.choice:
 			return False
-		choice = self.game.current_player.choice
+		choice = player.choice
 		DEBUG("Queuing choice %r (cards: %r)", choice, choice.cards)
 		self.choices = {
-			"ChoiceType": ChoiceType.GENERAL,
+			"ChoiceType": choice_type,
 			"CountMin": choice.min_count,
 			"CountMax": choice.max_count,
 			"Entities": [e.entity_id for e in choice.cards],
@@ -185,9 +191,12 @@ class KettleManager:
 		if self.options_sent:
 			return
 
-		# Pre-mulligan phase?
 		if not self.game.current_player:
-			return
+			if self.game.step == Step.BEGIN_MULLIGAN:
+				# Mulligan phase
+				self.refresh_choices(self.game.player1)
+				self.refresh_choices(self.game.player2)
+				return
 
 		DEBUG("Refreshing options...")
 		if self.game.current_player.choice:
@@ -342,7 +351,7 @@ class Kettle(socketserver.BaseRequestHandler):
 		self.request.close()
 
 	async def packet_loop(self, manager, loop):
-		# send initial game state
+		# queue initial game state
 		manager.refresh_full_state()
 		if (not isinstance(manager.game.current_player, BaseAI)):
 			manager.refresh_options()
