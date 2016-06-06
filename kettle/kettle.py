@@ -268,7 +268,7 @@ class KettleManager:
 			# assert entity_id in self.choices["Entities"]
 			entities.append(self.get_entity(entity_id))
 
-		if (self.game.step == Step.BEGIN_MULLIGAN):
+		if self.game.step == Step.BEGIN_MULLIGAN:
 			# Be naive for now and assume this is the non-AI player's mulligan
 			if not isinstance(self.game.player1, PlayerAI):
 				player = self.game.player1
@@ -420,7 +420,7 @@ class Kettle(socketserver.BaseRequestHandler):
 			# throws GameOver when game ends
 			manager.process_send_option(packet["SendOption"])
 		elif packet["Type"] == "ChooseEntities":
-			manager.process_choose_entities(packet["ChooseEntities"])
+			manager.process_choose_entities(packet.get("ChooseEntities", []))
 		elif packet["Type"] == "Concede":
 			player = manager.game.players[packet["Concede"] - 1]
 			player.concede()
