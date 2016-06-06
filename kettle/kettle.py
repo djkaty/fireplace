@@ -261,7 +261,16 @@ class KettleManager:
 			# No need to assert, fireplace will raise InvalidAction
 			# assert entity_id in self.choices["Entities"]
 			entities.append(self.get_entity(entity_id))
-		self.game.current_player.choice.choose(*entities)
+
+		if (self.game.step == Step.BEGIN_MULLIGAN):
+			# Be naive for now and assume this is the non-AI player's mulligan
+			if not isinstance(self.game.player1, PlayerAI):
+				player = self.game.player1
+			else:
+				player = self.game.player2
+		else:
+			player = self.game.current_player
+		player.choice.choose(*entities)
 		self.options_sent = False
 
 	def tag_change(self, entity, tag, value):
