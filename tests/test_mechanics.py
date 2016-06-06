@@ -577,21 +577,22 @@ def test_mulligan():
 	game.start()
 	hand1 = game.player1.hand[:]
 	hand2 = game.player2.hand[:]
-	# Double-check no player has The Coin (yet)
+	# Check that the second player to act has The Coin
 	assert not game.player1.hand.contains(THE_COIN)
-	assert not game.player2.hand.contains(THE_COIN)
+	assert game.player2.hand.contains(THE_COIN)
+	# Check hand sizes are correct
 	assert len(hand1) == 3
-	assert len(hand2) == 4
+	assert len(hand2) == 5
 	# Do not choose anything for player 1
 	game.player1.choice.choose()
 	assert game.player1.hand == hand1
-
 	# Replace the first two cards for player 2
 	game.player2.choice.choose(hand2[0], hand2[1])
 	assert hand2[0] not in game.player2.hand
 	assert hand2[1] not in game.player2.hand
 	assert hand2[2] in game.player2.hand
 	assert hand2[3] in game.player2.hand
+	# Make sure The Coin has been moved to the end of the deck
 	assert game.player2.hand[4] == THE_COIN
 
 

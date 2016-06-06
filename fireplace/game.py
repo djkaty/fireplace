@@ -279,6 +279,9 @@ class BaseGame(Entity):
 
 	def start(self):
 		self.setup()
+		self._start()
+
+	def _start(self):
 		self.begin_turn(self.player1)
 
 	def end_turn(self):
@@ -349,11 +352,10 @@ class CoinRules:
 		self.log("Tossing the coin... %s wins!", winner)
 		return winner, winner.opponent
 
-	def begin_turn(self, player):
-		if self.turn == 0:
-			self.log("%s gets The Coin (%s)", self.player2, THE_COIN)
-			self.player2.give(THE_COIN)
-		super().begin_turn(player)
+	def _start(self):
+		self.log("%s gets The Coin (%s)", self.player2, THE_COIN)
+		self.player2.give(THE_COIN)
+		super()._start()
 
 
 class MulliganRules:
@@ -361,10 +363,8 @@ class MulliganRules:
 	Performs a Mulligan phase when the Game starts.
 	Only begin the game after both Mulligans have been chosen.
 	"""
-
-	def start(self):
+	def _start(self):
 		from .actions import MulliganChoice
-		self.setup()
 		self.manager.step(self.next_step, Step.BEGIN_MULLIGAN)
 		self.log("Entering mulligan phase")
 		self.manager.step(self.next_step)
@@ -373,8 +373,12 @@ class MulliganRules:
 			self.queue_actions(self, [MulliganChoice(player, callback=self.mulligan_done)])
 
 	def mulligan_done(self):
+		coin = self.player2.hand.filter(id=THE_COIN)[0].zone_position - 1
+		self.player2.hand += [self.player2.hand.pop(coin)]
 		self.begin_turn(self.player1)
 
 
-class Game(MulliganRules, CoinRules, BaseGame):
-	pass
+# warning: parent _starts are executed in left-to-right inheritance order
+class Game(CoinRules, MulliganRules, BaseGame):
+	def _start(self):
+		super()._start()
