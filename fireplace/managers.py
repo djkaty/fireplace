@@ -104,6 +104,7 @@ class PlayerManager(Manager):
 		GameTag.LAST_CARD_PLAYED: "last_card_played",
 		GameTag.MAXHANDSIZE: "max_hand_size",
 		GameTag.MAXRESOURCES: "max_resources",
+		GameTag.MULLIGAN_STATE: "mulligan_state",
 		GameTag.NUM_CARDS_DRAWN_THIS_TURN: "cards_drawn_this_turn",
 		GameTag.NUM_CARDS_PLAYED_THIS_TURN: "cards_played_this_turn",
 		GameTag.NUM_MINIONS_PLAYED_THIS_TURN: "minions_played_this_turn",
