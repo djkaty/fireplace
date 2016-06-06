@@ -13,7 +13,7 @@ from hearthstone.enums import (
 )
 from fireplace import actions, cards
 from fireplace.exceptions import GameOver
-from fireplace.game import BaseGame as Game
+from fireplace.game import Game
 from fireplace.player import Player
 from fireplace.utils import CardList
 from fireplace.controller import GameController
@@ -179,6 +179,10 @@ class KettleManager:
 
 	def refresh_options(self):
 		if self.options_sent:
+			return
+
+		# Pre-mulligan phase?
+		if not self.game.current_player:
 			return
 
 		DEBUG("Refreshing options...")
