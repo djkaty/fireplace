@@ -365,9 +365,9 @@ class MulliganRules:
 	def start(self):
 		from .actions import MulliganChoice
 		self.setup()
-		self.next_step = Step.BEGIN_MULLIGAN
+		self.manager.step(self.next_step, Step.BEGIN_MULLIGAN)
 		self.log("Entering mulligan phase")
-		self.step, self.next_step = self.next_step, Step.MAIN_READY
+		self.manager.step(self.next_step)
 
 		for player in self.players:
 			self.queue_actions(self, [MulliganChoice(player, callback=self.mulligan_done)])
