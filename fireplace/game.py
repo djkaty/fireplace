@@ -308,8 +308,10 @@ class BaseGame(Entity):
 		return self.queue_actions(self, [BeginTurn(player)])
 
 	def _begin_turn(self, player):
+		was_mulligan = self.step == Step.BEGIN_MULLIGAN
 		self.manager.step(self.next_step, Step.MAIN_READY)
-		self.turn += 1
+		if not was_mulligan:
+			self.turn += 1
 		self.log("%s begins turn %i", player, self.turn)
 		self.current_player = player
 		self.manager.step(self.next_step, Step.MAIN_START_TRIGGERS)
@@ -365,6 +367,8 @@ class MulliganRules:
 	"""
 	def _start(self):
 		from .actions import MulliganChoice
+		for player in self.players:
+			player.cards_drawn_this_turn = len(player.hand.exclude(id=THE_COIN))
 		self.manager.step(self.next_step, Step.BEGIN_MULLIGAN)
 		self.log("Entering mulligan phase")
 		self.manager.step(self.next_step)

@@ -234,9 +234,8 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 		else:
 			self.log("%s draws %r", self.controller, self)
 			self.zone = Zone.HAND
-			self.controller.cards_drawn_this_turn += 1
-
 			if self.game.step > Step.BEGIN_MULLIGAN:
+				self.controller.cards_drawn_this_turn += 1
 				# Proc the draw script, but only if we are past mulligan
 				actions = self.get_actions("draw")
 				self.game.trigger(self, actions, event_args=None)
