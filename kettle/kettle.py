@@ -268,7 +268,9 @@ class KettleManager:
 			# assert entity_id in self.choices["Entities"]
 			entities.append(self.get_entity(entity_id))
 
-		if self.game.step == Step.BEGIN_MULLIGAN:
+		# Must keep mulligan state as it may be changed by choose()
+		mulligan = self.game.step == Step.BEGIN_MULLIGAN
+		if mulligan:
 			# Be naive for now and assume this is the non-AI player's mulligan
 			if not isinstance(self.game.player1, PlayerAI):
 				player = self.game.player1
@@ -277,6 +279,9 @@ class KettleManager:
 		else:
 			player = self.game.current_player
 		player.choice.choose(*entities)
+		# If this was a mulligan choice, refresh state instantly
+		if mulligan:
+			self.refresh_full_state()
 		self.options_sent = False
 
 	def tag_change(self, entity, tag, value):

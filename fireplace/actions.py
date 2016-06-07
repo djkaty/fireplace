@@ -364,6 +364,8 @@ class MulliganChoice(GameAction):
 		self.callback = callback
 
 	def do(self, source, player):
+		if not hasattr(player.opponent, "mulligan_state") or player.opponent.mulligan_state != Mulligan.INPUT:
+			player.game.action_start(BlockType.TRIGGER, player.game, -1, 0)
 		player.mulligan_state = Mulligan.INPUT
 		player.choice = self
 		# NOTE: Weirdly, we have to give The Coin now,
@@ -376,12 +378,16 @@ class MulliganChoice(GameAction):
 		self.max_count = len(player.hand)
 
 	def choose(self, *cards):
+		if self.player.opponent.mulligan_state != Mulligan.DONE:
+			self.player.game.action_end(BlockType.TRIGGER, self.player.game)
+		self.player.mulligan_state = Mulligan.DEALING
 		self.player.draw(len(cards))
 		for card in cards:
 			assert card in self.cards
 			card.zone = Zone.DECK
 		self.player.choice = None
 		self.player.shuffle_deck()
+		self.player.mulligan_state = Mulligan.WAITING
 		self.player.mulligan_state = Mulligan.DONE
 
 		if self.player.opponent.mulligan_state == Mulligan.DONE:
