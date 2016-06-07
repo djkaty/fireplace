@@ -177,7 +177,7 @@ class KettleManager:
 			"CountMax": choice.max_count,
 			"Entities": [e.entity_id for e in choice.cards],
 			"Source": choice.source.entity_id,
-			"PlayerId": 1,
+			"PlayerId": player.entity_id - 1,
 		}
 		for show_choice in choice.cards:
 			self.refresh_state(show_choice.entity_id, False)
