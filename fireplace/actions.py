@@ -382,9 +382,18 @@ class MulliganChoice(GameAction):
 			self.player.game.action_end(BlockType.TRIGGER, self.player.game)
 		self.player.mulligan_state = Mulligan.DEALING
 		self.player.draw(len(cards))
+		# The drawn cards need to stay in the same zone position as the mulliganed ones
+		indexes = []
 		for card in cards:
 			assert card in self.cards
+			indexes.append(self.player.hand.index(card))
+		for card in cards:
 			card.zone = Zone.DECK
+		first_drawn_card_index = len(self.player.hand) - len(cards)
+		indexes = sorted(indexes)
+		for index in indexes:
+			self.player.hand.insert(index, self.player.hand.pop(first_drawn_card_index))
+			first_drawn_card_index += 1
 		self.player.choice = None
 		self.player.shuffle_deck()
 		self.player.mulligan_state = Mulligan.WAITING

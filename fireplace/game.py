@@ -377,8 +377,6 @@ class MulliganRules:
 			self.queue_actions(self, [MulliganChoice(player, callback=self.mulligan_done)])
 
 	def mulligan_done(self):
-		coin = self.player2.hand.filter(id=THE_COIN)[0].zone_position - 1
-		self.player2.hand += [self.player2.hand.pop(coin)]
 		self.begin_turn(self.player1)
 
 
