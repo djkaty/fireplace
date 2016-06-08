@@ -94,7 +94,7 @@ class KettleManager:
 			state[tag] = int(value)
 
 	def refresh_full_state(self, queue=True):
-		if self.game.step < Step.BEGIN_MULLIGAN:
+		if self.game.next_step < Step.BEGIN_MULLIGAN:
 			return
 		for entity in self.game:
 			if entity.entity_id in self.game_state: 
