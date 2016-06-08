@@ -272,9 +272,11 @@ class KettleManager:
 				player = self.game.player1
 			else:
 				player = self.game.player2
+			# Hearthstone sends all the entities to keep! - always keep The Coin
+			player.choice.choose(*[c for c in player.choice.cards if not c in entities and c.id != "GAME_005"])
 		else:
 			player = self.game.current_player
-		player.choice.choose(*entities)
+			player.choice.choose(*entities)
 		# If this was a mulligan choice, refresh state instantly
 		if mulligan:
 			self.refresh_full_state()
