@@ -9,7 +9,7 @@ import struct
 import sys
 from argparse import ArgumentParser
 from hearthstone.enums import (
-	CardType, ChoiceType, GameTag, OptionType, Step, Zone
+	CardType, ChoiceType, GameTag, Mulligan, OptionType, Step, Zone
 )
 from fireplace import actions, cards
 from fireplace.ai.player import BaseAI
@@ -92,6 +92,8 @@ class KettleManager:
 			if queue:
 				self.tag_change(entity, tag, int(value))
 			state[tag] = int(value)
+			if tag == GameTag.MULLIGAN_STATE and value == Mulligan.INPUT:
+				self.refresh_choices(entity)
 
 	def refresh_full_state(self, queue=True):
 		if self.game.next_step < Step.BEGIN_MULLIGAN:
