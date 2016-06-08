@@ -381,6 +381,7 @@ class MulliganChoice(GameAction):
 		if self.player.opponent.mulligan_state != Mulligan.DONE:
 			self.player.game.action_end(BlockType.TRIGGER, self.player.game)
 		self.player.mulligan_state = Mulligan.DEALING
+		self.player.game.action_start(BlockType.TRIGGER, self.player, 6, 0)
 		self.player.draw(len(cards))
 		# The drawn cards need to stay in the same zone position as the mulliganed ones
 		indexes = []
@@ -397,7 +398,10 @@ class MulliganChoice(GameAction):
 		self.player.choice = None
 		self.player.shuffle_deck()
 		self.player.mulligan_state = Mulligan.WAITING
+		self.player.game.action_end(BlockType.TRIGGER, self.player)
+		self.player.game.action_start(BlockType.TRIGGER, self.player, 7, 0)
 		self.player.mulligan_state = Mulligan.DONE
+		self.player.game.action_end(BlockType.TRIGGER, self.player)
 
 		if self.player.opponent.mulligan_state == Mulligan.DONE:
 			self.callback()

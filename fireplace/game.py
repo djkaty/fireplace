@@ -315,7 +315,11 @@ class BaseGame(Entity):
 		self.log("%s begins turn %i", player, self.turn)
 		self.current_player = player
 		self.manager.step(self.next_step, Step.MAIN_START_TRIGGERS)
+
+		self.manager.step(self.next_step, self.next_step)
+		self.action_start(BlockType.TRIGGER, player, 8, 0)
 		self.manager.step(self.next_step, Step.MAIN_START)
+		self.action_end(BlockType.TRIGGER, player)
 		self.manager.step(self.next_step, Step.MAIN_ACTION)
 
 		for p in self.players:
