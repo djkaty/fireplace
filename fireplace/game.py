@@ -272,6 +272,7 @@ class BaseGame(Entity):
 		self.player1.first_player = True
 		self.player2 = second
 		self.player2.first_player = False
+		self.current_player = self.player1
 
 		for player in self.players:
 			player.prepare_for_game()
