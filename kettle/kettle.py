@@ -298,7 +298,7 @@ class KettleManager:
 			"Type": "GameEntity",
 			"GameEntity": {
 				"EntityID": game.entity_id,
-				"Tags": self.game_state[game.entity_id],
+				"Tags": self.game_state[game.entity_id].copy(),
 			}
 		}
 
