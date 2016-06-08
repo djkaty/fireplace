@@ -93,7 +93,7 @@ class KettleManager:
 		if self.game.step < Step.BEGIN_MULLIGAN:
 			return
 		for entity in self.game:
-			if entity.entity_id in self.game_state:
+			if entity.entity_id in self.game_state: 
 				self.refresh_state(entity.entity_id)
 
 	def refresh_state(self, entity_id, queue=True):
