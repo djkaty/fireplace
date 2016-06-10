@@ -10,6 +10,7 @@ class GameController:
 		self.log = get_logger("fireplace")
 		self.game = game
 		self.game.manager.register(self)
+		self.previous_step = Step.INVALID
 
 	# manager interface
 	def action_start(self, type, source, index, target):
@@ -24,8 +25,6 @@ class GameController:
 	def start_game(self):
 		self.log.info("Game has started")
 		# note: choice will be None here but won't be when mulligan() starts
-		self.log.info("%r %r", self.game.player1, self.game.player2)
-		self.log.info("%r %r", isinstance(self.game.player1, BaseAI), isinstance(self.game.player2, BaseAI))
 		if isinstance(self.game.player1, BaseAI):
 			self.event_loop.call_soon(self.game.player1.mulligan)
 		if isinstance(self.game.player2, BaseAI):
@@ -33,9 +32,10 @@ class GameController:
 
 	def game_step(self, step, next_step):
 		self.log.debug("Game.STEP changes to %s", step)
-		if step == Step.MAIN_ACTION:
+		if step == Step.MAIN_ACTION and self.previous_step == Step.MAIN_START:
 			self.log.info("Turn %s starting for player %s", self.game.turn, self.game.current_player.entity_id - 1)
 			self.event_loop.call_soon(self.do_turn)
+		self.previous_step = step
 
 	# internal processing
 	def do_turn(self):
