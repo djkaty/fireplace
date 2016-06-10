@@ -41,7 +41,6 @@ class KettleManager:
 		self.game = game
 		self.game_state = {}
 		self.queued_data = []
-		self.options_sent = False
 
 	def action_start(self, type, source, index, target):
 		DEBUG("Beginning new action %r (%r, %r, %r)", type, source, index, target)
@@ -64,6 +63,8 @@ class KettleManager:
 
 	def game_step(self, step, next_step):
 		self.refresh_full_state()
+		if (step == Step.MAIN_ACTION):
+			self.refresh_options()
 
 	def add_to_state(self, entity):
 		state = self.game_state[entity.entity_id] = {}
@@ -165,7 +166,6 @@ class KettleManager:
 		else:
 			choice_type = ChoiceType.GENERAL
 			player = self.game.current_player
-
 		if not hasattr(player, "choice"):
 			return False
 		if not player.choice:
@@ -185,25 +185,20 @@ class KettleManager:
 			self.queued_data.append(self.show_entity(show_choice))
 		payload = {"Type": "EntityChoices", "EntityChoices": self.choices}
 		self.queued_data.append(payload)
-		self.options_sent = True
 		return True
 
 	def refresh_options(self):
-		if self.options_sent:
-			return
-
 		if not self.game.current_player:
 			if self.game.step == Step.BEGIN_MULLIGAN:
 				# Mulligan phase
 				self.refresh_choices(self.game.player1)
 				self.refresh_choices(self.game.player2)
 				return
-
+		if isinstance(self.game.current_player, PlayerAI):
+			return
 		DEBUG("Refreshing options...")
 		if self.game.current_player.choice:
-			self.refresh_choices()
-			self.options_sent = True
-			return
+			return self.refresh_choices()
 		self.options = [{"Type": OptionType.END_TURN}]
 
 		for entity in self.game.current_player.actionable_entities:
@@ -215,7 +210,6 @@ class KettleManager:
 			"Options": self.options,
 		}
 		self.queued_data.append(payload)
-		self.options_sent = True
 
 	def new_entity(self, entity):
 		self.add_to_state(entity)
@@ -259,7 +253,7 @@ class KettleManager:
 			func(**kwargs)
 		else:
 			raise NotImplementedError
-		self.options_sent = False
+		self.refresh_options()
 
 	def process_choose_entities(self, data):
 		DEBUG("Processing choose entities, data=%r", data)
@@ -282,10 +276,7 @@ class KettleManager:
 		else:
 			player = self.game.current_player
 			player.choice.choose(*entities)
-		# If this was a mulligan choice, refresh state instantly
-		if mulligan:
-			self.refresh_full_state()
-		self.options_sent = False
+		self.refresh_options()
 
 	def tag_change(self, entity, tag, value):
 		if tag < 0:
@@ -383,13 +374,7 @@ class Kettle(socketserver.BaseRequestHandler):
 					await self.process_packet(packet, manager, loop)
 				except GameOver:
 					break
-
-			if (not isinstance(manager.game.current_player, PlayerAI)):
-				# only send options for human players
-				manager.refresh_options()
-
 			await self.send_payload(manager, loop)
-
 			# relinquish control to event loop so game processing can occur
 			await asyncio.sleep(0)
 
