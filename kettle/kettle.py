@@ -12,14 +12,13 @@ from hearthstone.enums import (
 	CardType, ChoiceType, GameTag, Mulligan, OptionType, Step, Zone
 )
 from fireplace import actions, cards
-from fireplace.ai.player import BaseAI
+from fireplace.ai.contrib.test1 import Test1AI
 from fireplace.controller import GameController
 from fireplace.exceptions import GameOver
 from fireplace.game import Game
 from fireplace.player import Player
 from fireplace.utils import CardList
 from fireplace.controller import GameController
-from fireplace.ai.player import PlayerAI
 
 
 logging.basicConfig(level=logging.DEBUG)
@@ -449,7 +448,7 @@ class Kettle(socketserver.BaseRequestHandler):
 				first = False
 			else:
 				# FIXME: always assume 2nd player is AI
-				p = BaseAI(player["Name"], cards, player["Hero"])
+				p = Test1AI(player["Name"], cards, player["Hero"])
 			players.append(p)
 
 		INFO("Initializing a Kettle game with players=%r", players)
