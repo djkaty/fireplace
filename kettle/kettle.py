@@ -371,9 +371,6 @@ class Kettle(socketserver.BaseRequestHandler):
 	async def packet_loop(self, manager, loop):
 		# queue initial game state
 		manager.refresh_full_state()
-		if (not isinstance(manager.game.current_player, BaseAI)):
-			manager.refresh_options()
-		await self.send_payload(manager, loop)
 
 		while True:
 			# see if human player sends SendOption or Concede
