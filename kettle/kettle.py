@@ -18,6 +18,8 @@ from fireplace.exceptions import GameOver
 from fireplace.game import BaseGame as Game
 from fireplace.player import Player
 from fireplace.utils import CardList
+from fireplace.controller import GameController
+from fireplace.ai.player import PlayerAI
 
 
 logging.basicConfig(level=logging.DEBUG)
@@ -111,13 +113,28 @@ class KettleManager:
 		if entity.zone == Zone.HAND:
 			if entity.type in (CardType.SPELL, CardType.MINION, CardType.WEAPON):
 				if entity.is_playable():
-					ret.append({
-						"Type": OptionType.POWER,
-						"MainOption": {
-							"ID": entity,
-							"Targets": entity.targets,
-						},
-					})
+					if not entity.must_choose_one:
+						ret.append({
+							"Type": OptionType.POWER,
+							"MainOption": {
+								"ID": entity,
+								"Targets": entity.targets,
+							},
+						})
+					else:
+						sub_opts = []
+						for e in entity.choose_cards:
+							sub_opts.append({
+								"ID": e,
+								"Targets": e.targets,
+							})
+						ret.append({
+							"Type": OptionType.POWER,
+							"MainOption": {
+								"ID": entity,
+							},
+							"SubOptions": sub_opts,
+						})
 
 		elif entity.zone == Zone.PLAY:
 			if entity.type == CardType.HERO_POWER:
@@ -142,6 +159,10 @@ class KettleManager:
 		return ret
 
 	def refresh_choices(self):
+		if not hasattr(self.game.current_player, "choice"):
+			return False
+		if not self.game.current_player.choice:
+			return False
 		choice = self.game.current_player.choice
 		DEBUG("Queuing choice %r (cards: %r)", choice, choice.cards)
 		self.choices = {
@@ -157,6 +178,8 @@ class KettleManager:
 			self.queued_data.append(self.show_entity(show_choice))
 		payload = {"Type": "EntityChoices", "EntityChoices": self.choices}
 		self.queued_data.append(payload)
+		self.options_sent = True
+		return True
 
 	def refresh_options(self):
 		if self.options_sent:
@@ -212,6 +235,8 @@ class KettleManager:
 			if entity.zone == Zone.HAND:
 				func = entity.play
 				kwargs["index"] = data["Position"]
+				if data["SubOption"] != -1:
+					kwargs["choose"] = option["SubOptions"][data["SubOption"]]["ID"]
 			elif entity.zone == Zone.PLAY:
 				if entity.type == CardType.HERO_POWER:
 					func = entity.use
