@@ -1,6 +1,6 @@
 import random
 from hearthstone.enums import CardClass
-from fireplace.ai.player import PassTurnAI
+from fireplace.ai.contrib.examples import PassTurnAI
 from fireplace.card import *
 from fireplace.logging import get_logger
 
