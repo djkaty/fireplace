@@ -12,7 +12,7 @@ from hearthstone.enums import (
 	CardType, ChoiceType, GameTag, Mulligan, OptionType, Step, Zone
 )
 from fireplace import actions, cards
-from fireplace.ai.contrib.test1 import Test1AI
+from fireplace.ai.contrib.test1 import Test1AI as PlayerAI
 from fireplace.controller import GameController
 from fireplace.exceptions import GameOver
 from fireplace.game import Game
@@ -384,7 +384,7 @@ class Kettle(socketserver.BaseRequestHandler):
 				except GameOver:
 					break
 
-			if (not isinstance(manager.game.current_player, BaseAI)):
+			if (not isinstance(manager.game.current_player, PlayerAI)):
 				# only send options for human players
 				manager.refresh_options()
 
@@ -448,7 +448,7 @@ class Kettle(socketserver.BaseRequestHandler):
 				first = False
 			else:
 				# FIXME: always assume 2nd player is AI
-				p = Test1AI(player["Name"], cards, player["Hero"])
+				p = PlayerAI(player["Name"], cards, player["Hero"])
 			players.append(p)
 
 		INFO("Initializing a Kettle game with players=%r", players)
