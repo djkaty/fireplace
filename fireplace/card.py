@@ -643,7 +643,7 @@ class Minion(Character):
 	def _set_zone(self, value):
 		if value == Zone.PLAY:
 			if self._summon_index is not None:
-				self.controller.field.insert(self._summon_index, self)
+				self.controller.field.insert(self._summon_index - 1, self)
 			else:
 				self.controller.field.append(self)
 		elif value == Zone.GRAVEYARD:
