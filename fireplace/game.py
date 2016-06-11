@@ -372,6 +372,7 @@ class MulliganRules:
 	"""
 	def _start(self):
 		from .actions import MulliganChoice
+		self.turn = 1
 		for player in self.players:
 			player.cards_drawn_this_turn = len(player.hand.exclude(id=THE_COIN))
 		self.manager.step(self.next_step, Step.BEGIN_MULLIGAN)
