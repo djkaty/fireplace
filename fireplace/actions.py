@@ -1147,8 +1147,7 @@ class Summon(TargetedAction):
 				card.controller = target
 			if card.zone != Zone.PLAY:
 				if source.type == CardType.MINION and source.zone == Zone.PLAY:
-					source_index = source.controller.field.index(source)
-					card._summon_position = source_index + ((self.trigger_index + 1) % 2)
+					card._summon_position = source.zone_position + ((self.trigger_index + 1) % 2)
 				card.zone = Zone.PLAY
 			self.queue_broadcast(self, (source, EventListener.ON, target, card))
 			self.broadcast(source, EventListener.AFTER, target, card)
