@@ -86,7 +86,7 @@ class GameManager(Manager):
 		if next_step is not None:
 			self.obj.next_step = next_step
 		for observer in self.observers:
-			observer.game_step(previous_step, step, next_step)
+			observer.game_step(previous_step, step, self.obj.next_step)
 
 
 class PlayerManager(Manager):
