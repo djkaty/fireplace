@@ -87,7 +87,7 @@ class BaseCard(BaseEntity):
 			Zone.DECK: self.controller.deck,
 			Zone.DISCARD: self.controller.discarded,
 			Zone.GRAVEYARD: self.controller.graveyard,
-			Zone.SETASIDE: self.game.setaside
+			Zone.SETASIDE: self.game.setaside,
 		}
 		if caches.get(old) is not None:
 			caches[old].remove(self)
