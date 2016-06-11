@@ -41,6 +41,7 @@ class KettleManager:
 		self.game = game
 		self.game_state = {}
 		self.queued_data = []
+		self.options_sent = False
 
 	def action_start(self, type, source, index, target):
 		DEBUG("Beginning new action %r (%r, %r, %r)", type, source, index, target)
@@ -63,7 +64,7 @@ class KettleManager:
 
 	def game_step(self, previous_step, step, next_step):
 		self.refresh_full_state()
-		if step == Step.MAIN_ACTION and previous_step != Step.MAIN_ACTION:
+		if step == Step.MAIN_ACTION:
 			self.refresh_options()
 
 	def add_to_state(self, entity):
@@ -185,9 +186,12 @@ class KettleManager:
 			self.queued_data.append(self.show_entity(show_choice))
 		payload = {"Type": "EntityChoices", "EntityChoices": self.choices}
 		self.queued_data.append(payload)
+		self.options_sent = True
 		return True
 
 	def refresh_options(self):
+		if self.options_sent:
+			return
 		if not self.game.current_player:
 			if self.game.step == Step.BEGIN_MULLIGAN:
 				# Mulligan phase
@@ -210,6 +214,7 @@ class KettleManager:
 			"Options": self.options,
 		}
 		self.queued_data.append(payload)
+		self.options_sent = True
 
 	def new_entity(self, entity):
 		self.add_to_state(entity)
@@ -253,6 +258,7 @@ class KettleManager:
 			func(**kwargs)
 		else:
 			raise NotImplementedError
+		self.options_sent = False
 		self.refresh_options()
 
 	def process_choose_entities(self, data):
@@ -276,6 +282,7 @@ class KettleManager:
 		else:
 			player = self.game.current_player
 			player.choice.choose(*entities)
+		self.options_sent = False
 		self.refresh_options()
 
 	def tag_change(self, entity, tag, value):
