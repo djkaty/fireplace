@@ -10,7 +10,6 @@ class GameController:
 		self.log = get_logger("fireplace")
 		self.game = game
 		self.game.manager.register(self)
-		self.previous_step = Step.INVALID
 
 	# manager interface
 	def action_start(self, type, source, index, target):
@@ -30,12 +29,11 @@ class GameController:
 		if isinstance(self.game.player2, BaseAI):
 			self.event_loop.call_soon(self.game.player2.mulligan)
 
-	def game_step(self, step, next_step):
+	def game_step(self, previous_step, step, next_step):
 		self.log.debug("Game.STEP changes to %s", step)
-		if step == Step.MAIN_ACTION and self.previous_step == Step.MAIN_START:
+		if step == Step.MAIN_ACTION and previous_step == Step.MAIN_START:
 			self.log.info("Turn %s starting for player %s", self.game.turn, self.game.current_player.entity_id - 1)
 			self.event_loop.call_soon(self.do_turn)
-		self.previous_step = step
 
 	# internal processing
 	def do_turn(self):

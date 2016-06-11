@@ -81,11 +81,12 @@ class GameManager(Manager):
 
 	def step(self, step, next_step=None):
 		self.logger.debug("Game.STEP changes to %r (next step is %r)", step, next_step)
+		previous_step = self.obj.step
 		self.obj.step = step
 		if next_step is not None:
 			self.obj.next_step = next_step
 		for observer in self.observers:
-			observer.game_step(step, next_step)
+			observer.game_step(previous_step, step, next_step)
 
 
 class PlayerManager(Manager):

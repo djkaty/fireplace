@@ -61,9 +61,9 @@ class KettleManager:
 		payload = {"Type": "ActionEnd"}
 		self.queued_data.append(payload)
 
-	def game_step(self, step, next_step):
+	def game_step(self, previous_step, step, next_step):
 		self.refresh_full_state()
-		if (step == Step.MAIN_ACTION):
+		if step == Step.MAIN_ACTION:
 			self.refresh_options()
 
 	def add_to_state(self, entity):
