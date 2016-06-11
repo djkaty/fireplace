@@ -117,7 +117,10 @@ class BaseGame(Entity):
 		actions = [Attack(source, target)]
 		result = self.action_block(source, actions, type, target=target)
 		if self.state != State.COMPLETE:
-			self.manager.step(Step.MAIN_ACTION, Step.MAIN_END)
+			self.manager.step(Step.MAIN_ACTION)
+			self.action_start(BlockType.TRIGGER, source.controller, 2, 0)
+			self.manager.step(self.game.step, Step.MAIN_END)
+			self.action_end(BlockType.TRIGGER, source.controller)
 
 	def joust(self, source, challenger, defender, actions):
 		type = BlockType.JOUST
@@ -340,7 +343,10 @@ class BaseGame(Entity):
 			character.num_attacks = 0
 
 		player.draw()
-		self.manager.step(self.next_step, Step.MAIN_END)
+		self.manager.step(self.next_step)
+		self.action_start(BlockType.TRIGGER, player, 2, 0)
+		self.manager.step(self.step, Step.MAIN_END)
+		self.action_end(BlockType.TRIGGER, player)
 
 
 class CoinRules:
