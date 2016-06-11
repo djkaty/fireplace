@@ -133,10 +133,10 @@ class BaseGame(Entity):
 		actions = [Play(card, target, index, choose)]
 
 		if card.must_choose_entity:
-			self.action_start(type, card, index, None)
+			self.action_start(type, card, 0, None)
 			return self.queue_actions(player, actions)
 		else:
-			return self.action_block(player, actions, type, index, target, card_source=card)
+			return self.action_block(player, actions, type, 0, target, card_source=card)
 
 	def process_deaths(self):
 		type = BlockType.DEATHS
