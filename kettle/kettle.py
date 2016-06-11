@@ -63,7 +63,7 @@ class KettleManager:
 
 	def game_step(self, previous_step, step, next_step):
 		self.refresh_full_state()
-		if step == Step.MAIN_ACTION:
+		if step == Step.MAIN_ACTION and previous_step != Step.MAIN_ACTION:
 			self.refresh_options()
 
 	def add_to_state(self, entity):
