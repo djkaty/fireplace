@@ -147,7 +147,7 @@ class BaseGame(Entity):
 
 		actions = []
 		if cards:
-			self.action_start(type, self, -1, None)
+			self.action_start(type, self, 0, None)
 			for card in cards:
 				card.zone = Zone.GRAVEYARD
 				actions.append(Death(card))
