@@ -122,6 +122,7 @@ class PlayerManager(Manager):
 		GameTag.TEMP_RESOURCES: "temp_mana",
 		GameTag.TIMEOUT: "timeout",
 		GameTag.TURN_START: "turn_start",
+		GameTag.ZONE: "zone",
 		enums.CANT_OVERLOAD: "cant_overload",
 	}
 
