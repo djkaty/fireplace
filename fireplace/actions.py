@@ -439,7 +439,7 @@ class Play(GameAction):
 		player.pay_cost(card, card.cost)
 
 		card.target = target
-		card._summon_index = index
+		card._summon_position = index
 
 		card.zone = Zone.PLAY
 
@@ -1014,7 +1014,7 @@ class Morph(TargetedAction):
 		target_zone = target.zone
 		if card.zone != target_zone:
 			# Transfer the zone position
-			card._summon_index = target.zone_position
+			card._summon_position = target.zone_position
 			# In-place morph is OK, eg. in the case of Lord Jaraxxus
 			card.zone = target_zone
 		target.clear_buffs()
@@ -1150,7 +1150,7 @@ class Summon(TargetedAction):
 			if card.zone != Zone.PLAY:
 				if source.type == CardType.MINION and source.zone == Zone.PLAY:
 					source_index = source.controller.field.index(source)
-					card._summon_index = source_index + ((self.trigger_index + 1) % 2)
+					card._summon_position = source_index + ((self.trigger_index + 1) % 2)
 				card.zone = Zone.PLAY
 			self.queue_broadcast(self, (source, EventListener.ON, target, card))
 			self.broadcast(source, EventListener.AFTER, target, card)

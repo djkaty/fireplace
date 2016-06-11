@@ -588,7 +588,7 @@ class Minion(Character):
 		self.enrage = False
 		self.poisonous = False
 		self.silenced = False
-		self._summon_index = None
+		self._summon_position = None
 		super().__init__(data)
 
 	@property
@@ -642,8 +642,8 @@ class Minion(Character):
 
 	def _set_zone(self, value):
 		if value == Zone.PLAY:
-			if self._summon_index is not None:
-				self.controller.field.insert(self._summon_index - 1, self)
+			if self._summon_position is not None:
+				self.controller.field.insert(self._summon_position - 1, self)
 			else:
 				self.controller.field.append(self)
 		elif value == Zone.GRAVEYARD:
