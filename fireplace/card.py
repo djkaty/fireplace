@@ -166,6 +166,10 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 		self._cost = value
 
 	@property
+	def just_played(self):
+		return self.controller.last_card_played == self
+
+	@property
 	def must_choose_one(self):
 		"""
 		Returns True if the card has active choices
