@@ -130,10 +130,10 @@ class BaseGame(Entity):
 		type = BlockType.POWER
 		return self.action_block(source, actions, type, target=target)
 
-	def play_card(self, card, target, index, choose):
+	def play_card(self, card, target, position, choose):
 		type = BlockType.PLAY
 		player = card.controller
-		actions = [Play(card, target, index, choose)]
+		actions = [Play(card, target, position, choose)]
 
 		if card.must_choose_entity:
 			self.action_start(type, card, 0, None)

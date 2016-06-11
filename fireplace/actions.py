@@ -423,7 +423,7 @@ class Play(GameAction):
 	PLAYER = ActionArg()
 	CARD = CardArg()
 	TARGET = ActionArg()
-	INDEX = IntArg()
+	POSITION = IntArg()
 	CHOOSE = ActionArg()
 
 	def _broadcast(self, entity, source, at, *args):
@@ -432,9 +432,9 @@ class Play(GameAction):
 			return
 		return super()._broadcast(entity, source, at, *args)
 
-	def do(self, source, card, target, index, choose):
+	def do(self, source, card, target, position, choose):
 		player = source
-		log.info("%s plays %r (target=%r, index=%r)", player, card, target, index)
+		log.info("%s plays %r (target=%r, index=%r)", player, card, target, position)
 
 		player.pay_cost(card, card.cost)
 		player.last_card_played = card
@@ -442,7 +442,7 @@ class Play(GameAction):
 		if card.type == CardType.MINION:
 			player.minions_played_this_turn += 1
 		card.target = target
-		card._summon_position = index
+		card._summon_position = position
 		card.zone = Zone.PLAY
 
 		# NOTE: A Play is not a summon! But it sure looks like one.
