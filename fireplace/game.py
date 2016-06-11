@@ -156,7 +156,7 @@ class BaseGame(Entity):
 				actions.append(Death(card))
 			self.check_for_end_game()
 			self.action_end(type, self)
-			self.trigger(self, actions, event_args=None)
+			self.queue_actions(self, actions)
 
 	def trigger(self, source, actions, event_args):
 		"""

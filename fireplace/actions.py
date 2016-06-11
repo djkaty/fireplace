@@ -281,7 +281,7 @@ class Death(GameAction):
 		log.info("Processing Death for %r", target)
 		self.broadcast(source, EventListener.ON, target)
 		if target.deathrattles:
-			source.game.queue_actions(source, [Deathrattle(target)])
+			source.game.action_block(source, [Deathrattle(target)], BlockType.TRIGGER, 0, target)
 
 
 class EndTurn(GameAction):
