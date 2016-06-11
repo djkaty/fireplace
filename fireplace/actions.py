@@ -437,10 +437,12 @@ class Play(GameAction):
 		log.info("%s plays %r (target=%r, index=%r)", player, card, target, index)
 
 		player.pay_cost(card, card.cost)
-
+		player.last_card_played = card
+		player.cards_played_this_turn += 1
+		if card.type == CardType.MINION:
+			player.minions_played_this_turn += 1
 		card.target = target
 		card._summon_position = index
-
 		card.zone = Zone.PLAY
 
 		# NOTE: A Play is not a summon! But it sure looks like one.
@@ -465,10 +467,6 @@ class Play(GameAction):
 			self.broadcast(player, EventListener.AFTER, player, played_card, target)
 
 		player.combo = True
-		player.last_card_played = card
-		player.cards_played_this_turn += 1
-		if card.type == CardType.MINION:
-			player.minions_played_this_turn += 1
 
 		card.target = None
 		card.choose = None
