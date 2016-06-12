@@ -1073,16 +1073,16 @@ def test_voljin_stealth():
 def test_wee_spellstopper():
 	game = prepare_game(CardClass.MAGE, CardClass.MAGE)
 	outside = game.player1.give(WISP)
-	outside.play(index=0)
+	outside.play(position=1)
 	left = game.player1.give(TARGET_DUMMY)
-	left.play(index=1)
+	left.play(position=2)
 
 	moonfire = game.player1.give(MOONFIRE)
 	assert outside in moonfire.targets
 	assert not left.cant_be_targeted_by_abilities
 	assert left in moonfire.targets
 	spellstopper = game.player1.give("GVG_122")
-	spellstopper.play(index=2)
+	spellstopper.play(position=3)
 	assert outside in moonfire.targets
 	assert left.cant_be_targeted_by_abilities
 	assert left not in moonfire.targets

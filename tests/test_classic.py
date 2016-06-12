@@ -873,7 +873,7 @@ def test_defender_of_argus():
 	game.end_turn(); game.end_turn()
 
 	defender3 = game.player1.give("EX1_093")
-	defender3.play(index=1)
+	defender3.play(position=2)
 	assert game.player1.field == [defender1, defender3, defender2]
 	assert defender1.atk == 2 + 1 + 1
 	assert defender1.health == 3 + 1 + 1

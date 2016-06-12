@@ -176,7 +176,7 @@ def test_positional_selectors():
 	wisp4 = game.player1.give(WISP)
 	wisp4.play()
 	defender = game.player1.give("EX1_093")
-	defender.play(index=2)
+	defender.play(position=3)
 	assert game.player1.field == [wisp1, wisp2, defender, wisp3, wisp4]
 
 	left = LEFT_OF(SELF).eval(game, defender)
