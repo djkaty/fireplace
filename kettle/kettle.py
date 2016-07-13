@@ -247,7 +247,7 @@ class KettleManager:
 			DEBUG("data=%r", data)
 			if entity.zone == Zone.HAND:
 				func = entity.play
-				kwargs["index"] = data["Position"]
+				kwargs["position"] = data["Position"]
 				if data["SubOption"] != -1:
 					kwargs["choose"] = option["SubOptions"][data["SubOption"]]["ID"]
 			elif entity.zone == Zone.PLAY:
